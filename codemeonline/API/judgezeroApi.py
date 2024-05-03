@@ -43,8 +43,7 @@ class JudgeZeroApi:
             print (token)
 
             def get_results(token):
-                time.sleep(3)
-
+                time.sleep(2)
                 url = f"https://judge0-ce.p.rapidapi.com/submissions/{token}"
                 querystring = {"base64_encoded":"false","fields":"*"}
                 headers = {

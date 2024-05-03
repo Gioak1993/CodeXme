@@ -6,7 +6,7 @@ class LanguagesState(rx.State):
 
     languages: dict[str, int] = {
         "Python": 92,
-        "Javascript": 63,
+        "Javascript": 93,
         "TypeScript": 94,
         "Swift": 83,
         "Assembly": 45,
@@ -15,10 +15,23 @@ class LanguagesState(rx.State):
         "C++" : 76,
         "C#" : 51,
         "COBOL": 77,
+        "D": 56,
         "Dart": 90,
-       "Go" : 60,
-       "Ruby": 72,
-
+        "Elixir": 57,
+        "Erlang": 58,
+        "F#": 87,
+        "Fortran": 59,
+        "Go" : 95,
+        "Grovy": 88,
+        "Haskell": 61,
+        "Kotlin": 78,
+        "Lua": 64,
+        "Objective-C": 79,
+        "Octave": 66,
+        "Perl": 85,
+        "R": 80,
+        "Ruby": 72,
+        "Scala": 81,
 
     }
 

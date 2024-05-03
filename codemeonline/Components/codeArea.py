@@ -35,7 +35,7 @@ def desktop_code_card() -> rx.Component:
                 rx.vstack(
                     rx.hstack(
                         rx.button('Clear', on_click=lambda: EditedCode.clear_input, type= 'reset'),
-                        rx.button(rx.icon('play'),'Run', on_click=[lambda: EditedCode.compilecode]),
+                        rx.button(rx.icon('play'),'Run', on_click=[lambda: EditedCode.set_loading, lambda: EditedCode.compilecode,]),
                         rx.menu.root(
                             rx.menu.trigger(
                                 rx.button(rx.icon("square-code"),"Language", variant="soft"),
@@ -80,7 +80,7 @@ def mobile_code_card() -> rx.Component:
                 rx.vstack(
                     rx.hstack(
                         rx.button('Clear', on_click=lambda: EditedCode.clear_input, type= 'reset'),
-                        rx.button(rx.icon('play'),'Run', on_click=[lambda: EditedCode.compilecode]),
+                        rx.button(rx.icon('play'),'Run', on_click=[lambda: EditedCode.set_loading,lambda: EditedCode.compilecode,]),
                         rx.menu.root(
                             rx.menu.trigger(
                                 rx.button(rx.icon("square-code"),"Language", variant="soft"),

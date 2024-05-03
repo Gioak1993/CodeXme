@@ -15,7 +15,6 @@ class EditedCode(rx.State):
         
         self.value: str = new_text
         print (self.value)
-        
 
     def clear_input (self):
 
@@ -30,6 +29,9 @@ class EditedCode(rx.State):
     def setlanguage_name (self, lang_name):
         self.language_name = lang_name.lower()
         print (self.language_name)
+
+    def set_loading(self):
+        self.output= "Loading..."
 
     def compilecode (self):
         

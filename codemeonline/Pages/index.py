@@ -36,7 +36,6 @@ def index() -> rx.Component:
                     ),
                     width='40%',
                     ),
-
                     width='100%',
                     padding='2rem',
                     margin="1rem",
