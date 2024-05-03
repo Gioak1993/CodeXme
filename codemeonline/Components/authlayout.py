@@ -13,16 +13,7 @@ def auth_layout(*args):
                 rx.heading("Sign in or sign up to get started.", size="8"),
                 align="center",
             ),
-            rx.text(
-                "See the source code for this demo app ",
-                rx.link(
-                    "here",
-                    href="https://github.com/reflex-dev/reflex-examples/tree/main/twitter",
-                ),
-                ".",
-                color="gray",
-                font_weight="medium",
-            ),
+            
             *args,
             border_top_radius="10px",
             box_shadow="0 4px 60px 0 rgba(0, 0, 0, 0.08), 0 4px 16px 0 rgba(0, 0, 0, 0.08)",

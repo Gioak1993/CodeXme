@@ -35,11 +35,14 @@ class EditedCode(rx.State):
         
         code_results = JudgeZeroApi(language_id= self.language_id, source_code=self.value)
         results = code_results.get_token()
-        stdout = results['stdout']
-        stderror = results ['stderr']
-        if type(stdout) == str:
-            self.output = stdout
-            print (stdout, type(stdout))
-        elif type(stdout) == type(None):
-            self.output = stderror
-            print (stdout, type(stderror))
+        if type(results) != type(None):
+            stdout = results['stdout']
+            stderror = results ['stderr']
+            if type(stdout) == str:
+                self.output = stdout
+                print (stdout, type(stdout))
+            elif type(stdout) == type(None):
+                self.output = stderror
+                print (stdout, type(stderror))
+        else:
+            self.output = "There was an error"

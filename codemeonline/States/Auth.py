@@ -2,9 +2,8 @@
 import reflex as rx
 from sqlmodel import select
 import bcrypt
-
 from .Logged import User
-from .ClientStorage import ClientStorage
+
 
 def hash_password(password: str) -> str:
     # Generate a salt
@@ -37,7 +36,7 @@ class AuthState(rx.State):
             if session.exec(select(User).where(User.user_name == self.username)).first():
                 return rx.window_alert("Username already exists.")
             if session.exec(select(User).where(User.email == self.email)).first():
-                return rx.window_alert("Email its relate already with an account.")
+                return rx.window_alert("Email its linked already with an account.")
             hashed_password = hash_password(self.password)
             self.user = User(user_name=self.username, password_hash=hashed_password, email=self.email.lower())
             session.add(self.user)
@@ -47,8 +46,6 @@ class AuthState(rx.State):
 
     def login(self):
         """Log in a user."""
-
-        
 
         with rx.session() as session:
             user = session.exec(
@@ -66,7 +63,6 @@ class AuthState(rx.State):
             else:
                 return rx.window_alert("Invalid username or password")
             
-    
     def logout(self):
         """Log out a user."""
         if self.user_id_cookie == "2":

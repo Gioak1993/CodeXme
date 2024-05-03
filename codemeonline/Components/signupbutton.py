@@ -7,3 +7,4 @@ def signup_button() -> rx.Component:
                 rx.button("Log Out", on_click= lambda: AuthState.logout),
                 rx.button("Sign In", on_click= lambda: rx.redirect('/login')),
 )
+

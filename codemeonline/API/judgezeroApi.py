@@ -2,12 +2,14 @@ import requests
 import json
 from dotenv import load_dotenv
 import os
+import base64
 
 load_dotenv()
 
 class JudgeZeroApi:
 
     def __init__(self, language_id:int, source_code:str) -> None:
+        # source_code = base64.b64encode(source_code.encode(( 'utf-8')))
         self.language_id = language_id
         self.source_code = source_code
 
@@ -25,11 +27,12 @@ class JudgeZeroApi:
         headers = {
             "content-type": "application/json",
             "Content-Type": "application/json",
-            "X-RapidAPI-Key": os.environ.get("X_RapidAPI_Key"),
+            "X-RapidAPI-Key": os.getenv("RapidAPI_Key"),
             "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
         }
 
         response = requests.post(url, json=payload, headers=headers, params=querystring)
+        print (response.json())
         if response.status_code == 201:
             response_data = response.json()
             token = response_data['token']
@@ -40,7 +43,7 @@ class JudgeZeroApi:
                 url = f"https://judge0-ce.p.rapidapi.com/submissions/{token}"
                 querystring = {"base64_encoded":"false","fields":"*"}
                 headers = {
-                    "X-RapidAPI-Key": os.environ.get("X_RapidAPI_Key"),
+                    "X-RapidAPI-Key": os.getenv("RapidAPI_Key"),
                     "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com"
                 }
                 response = requests.get(url, headers=headers, params=querystring)

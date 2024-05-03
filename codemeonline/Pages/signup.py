@@ -4,6 +4,7 @@ import reflex as rx
 from codemeonline.Components.authlayout import auth_layout
 from codemeonline.Components.navbar import navbar
 from codemeonline.States.Auth import AuthState
+from ..Components.footer import footer
 
 
 def signup():
@@ -45,7 +46,6 @@ def signup():
                 align="center",
             ),
             align_items="left",
-            background="white",
             border="1px solid #eaeaea",
             padding="16px",
             width="400px",
@@ -53,10 +53,11 @@ def signup():
         ),
         rx.text(
             "Already have an account? ",
-            rx.link("Sign in here.", href="/"),
+            rx.link("Sign in here.", href="/login"),
             color="gray",
         ),
     ),
+    footer(),
     min_height="100vh",
     padding="1rem",
     width="100%",

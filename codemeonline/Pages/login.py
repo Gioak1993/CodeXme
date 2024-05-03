@@ -2,6 +2,7 @@ import reflex as rx
 from codemeonline.Components.authlayout import auth_layout
 from codemeonline.States.Auth import AuthState
 from codemeonline.Components.navbar import navbar
+from ..Components.footer import footer
 
 def login():
     """The login page."""
@@ -27,7 +28,6 @@ def login():
                 align="center",
             ),
             align_items="left",
-            background="white",
             border="1px solid #eaeaea",
             padding="16px",
             width="400px",
@@ -40,6 +40,7 @@ def login():
         ),
         
     ),
+    footer(),
     min_height="100vh",
     padding="1rem",
     width="100%",

@@ -62,7 +62,7 @@ def desktop_code_card() -> rx.Component:
                     ),
                 width="100%",
                 ),
-            height='30rem',
+            height='80vh',
             width = '100%',
             ),
             width='100%',
@@ -70,7 +70,56 @@ def desktop_code_card() -> rx.Component:
     width='100%',
 )
 
+def mobile_code_card() -> rx.Component:
+    return rx.mobile_and_tablet(
+        rx.card(
+            rx.flex(
+                rx.vstack(
+                    rx.hstack(
+                        rx.button('Clear', on_click=lambda: EditedCode.clear_input, type= 'reset'),
+                        rx.button(rx.icon('play'),'Run', on_click=[lambda: EditedCode.compilecode]),
+                        rx.menu.root(
+                            rx.menu.trigger(
+                                rx.button(rx.icon("square-code"),"Language", variant="soft"),
+                            ),
+                                rx.menu.content(
+                                        rx.foreach(LanguagesState.languages, dropdown_lang)
+                                ),
+                        ),
+                    ),
+                    rx.vstack(
+                        rx.vstack(
+                            rx.text("Input", size="2"),
+                            codearea(value= EditedCode.value, language= EditedCode.language_name, on_change = EditedCode.changetext),
+                            width="100%",
+                            height="100%",
+                            ),
+                            
+                        rx.vstack(
+                            rx.text("Output", size="2"),
+                            codearea(value=EditedCode.output, language= EditedCode.language_name, defaultValue="", options={"readOnly":"true", "lineNumbers": "off"}),
+                            width="100%",
+                            height="100%",
+                            ),
+                        width="100%",
+                        height="100%",
+                    ),
+                width="100%",
+                ),
+            height='80vh',
+            width = '100%',
+            ),
+            width='100%',
+    ),
+    width='100%',
+),
+
 
 def code_area():
-    return desktop_code_card()
+    return rx.stack(
+        desktop_code_card(),
+        mobile_code_card(),
+        width='100%'
+    )
+
 
