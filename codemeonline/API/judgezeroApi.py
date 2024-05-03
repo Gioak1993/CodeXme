@@ -3,6 +3,7 @@ import json
 from dotenv import load_dotenv
 import os
 import base64
+import time
 
 load_dotenv()
 
@@ -22,6 +23,9 @@ class JudgeZeroApi:
         payload = {
             "language_id": self.language_id,
             "source_code": self.source_code,
+            "callback_url": "https://codexme.reflex.run/",
+            "expected_output": "null",
+            
         }
 
         headers = {
@@ -39,6 +43,7 @@ class JudgeZeroApi:
             print (token)
 
             def get_results(token):
+                time.sleep(3)
 
                 url = f"https://judge0-ce.p.rapidapi.com/submissions/{token}"
                 querystring = {"base64_encoded":"false","fields":"*"}

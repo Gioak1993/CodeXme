@@ -7,7 +7,19 @@ class LanguagesState(rx.State):
     languages: dict[str, int] = {
         "Python": 92,
         "Javascript": 63,
+        "TypeScript": 94,
         "Swift": 83,
+        "Assembly": 45,
+        "Bash": 46,
+        "C" : 75,
+        "C++" : 76,
+        "C#" : 51,
+        "COBOL": 77,
+        "Dart": 90,
+       "Go" : 60,
+       "Ruby": 72,
+
+
     }
 
 def dropdown_lang(lang):

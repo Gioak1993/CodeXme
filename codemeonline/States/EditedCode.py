@@ -38,11 +38,15 @@ class EditedCode(rx.State):
         if type(results) != type(None):
             stdout = results['stdout']
             stderror = results ['stderr']
+            status = results ['status']
+            description = status ['description']
             if type(stdout) == str:
                 self.output = stdout
                 print (stdout, type(stdout))
             elif type(stdout) == type(None):
                 self.output = stderror
                 print (stdout, type(stderror))
+            else:
+                self.output = "The server cant respond right now due to many of requests, wait a few minutes"
         else:
             self.output = "There was an error"

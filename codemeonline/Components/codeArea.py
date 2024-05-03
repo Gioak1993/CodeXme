@@ -12,6 +12,7 @@ class CodeArea(rx.Component):
     is_default=True
 
 
+
     """Default programming language"""
     defaultLanguage: str = "python"
     defaultValue: str = "#Type your code here"
@@ -21,6 +22,7 @@ class CodeArea(rx.Component):
     width: str = "100%"
     options: dict = {"readOnly" : "false", "lineNumbers": "on"}
     on_change: rx.EventHandler[lambda e0: [e0]]
+    
         
 
 codearea = CodeArea.create
@@ -53,7 +55,8 @@ def desktop_code_card() -> rx.Component:
                             
                         rx.vstack(
                             rx.text("Output", size="2"),
-                            codearea(value=EditedCode.output, language= EditedCode.language_name, defaultValue="", options={"readOnly":"true", "lineNumbers": "off"}),
+                            rx.code(EditedCode.output, size='1', variant='ghost'),
+                            #codearea(value=EditedCode.output, language = 'python', options={"readOnly":"true", "lineNumbers": "off"}),
                             width="100%",
                             height="100%",
                             ),
@@ -87,26 +90,32 @@ def mobile_code_card() -> rx.Component:
                                 ),
                         ),
                     ),
-                    rx.vstack(
-                        rx.vstack(
-                            rx.text("Input", size="2"),
+                    rx.tabs.root(
+                        rx.tabs.list(
+                            rx.tabs.trigger('Input', value='input'),
+                            rx.tabs.trigger('Output', value='output'),
+                        ),
+                    rx.tabs.content(
                             codearea(value= EditedCode.value, language= EditedCode.language_name, on_change = EditedCode.changetext),
+                            value='input',
                             width="100%",
                             height="100%",
                             ),
-                            
-                        rx.vstack(
-                            rx.text("Output", size="2"),
-                            codearea(value=EditedCode.output, language= EditedCode.language_name, defaultValue="", options={"readOnly":"true", "lineNumbers": "off"}),
+                    rx.tabs.content(
+                            rx.code(EditedCode.output, size='1', variant='ghost'),
+                            #codearea(value=EditedCode.output, language= EditedCode.language_name, defaultValue="", options={"readOnly":"true", "lineNumbers": "off"}),
+                            value='output',
                             width="100%",
                             height="100%",
                             ),
+                            default_value='input',
                         width="100%",
                         height="100%",
                     ),
                 width="100%",
+
                 ),
-            height='80vh',
+            height='90vh',
             width = '100%',
             ),
             width='100%',
@@ -119,7 +128,8 @@ def code_area():
     return rx.stack(
         desktop_code_card(),
         mobile_code_card(),
-        width='100%'
+        width='100%',
+        height='100%',
     )
 
 

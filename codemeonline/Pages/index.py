@@ -44,14 +44,14 @@ def index() -> rx.Component:
                     align='center',
                 ),
                 code_area(),
-                rx.logo(),
                 rx.text('''Our vision is to democratize access to technology and opportunities, empowering individuals from all 
                         walks of life to harness the power of coding and innovation. By providing accessible online tools and resources, 
                         Codexme aim to break down barriers and unlock the potential of every aspiring coder, regardless of their background, location or resources. ''',
                         as_='p',
-                        text_align='justify', 
+                        text_align='justify',
+                        size='7', 
                         ),
-                
+                rx.logo(),
                 align="center",
                 spacing="7",
                 font_size="2em",

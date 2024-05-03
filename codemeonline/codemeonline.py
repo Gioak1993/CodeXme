@@ -16,9 +16,6 @@ from .SqlModels.models import *
 ## Ensure that your main app module is importing your Model objects, otherwise Reflex will not know they are there.
 
 
-docs_url = "https://reflex.dev/docs/getting-started/introduction/"
-filename = f"{config.app_name}/{config.app_name}.py"
-
 
 class State(rx.State):
     """The app state."""
@@ -32,6 +29,7 @@ app = rx.App(
         radius="full",
         accent_color="cyan",
     ),
+    stylesheets=['https://fonts.googleapis.com/css2?family=Roboto:ital&display=swap'], style={"font_family":"Roboto, sans-serif"}
 )
 app.add_page(index, route='/')
 app.add_page(editor, route='/playground')

@@ -35,6 +35,7 @@ def problems () -> rx.Component:
         rx.cond(AuthState.logged_in,
                 rx.button("Create a new Problem here!", on_click=lambda: rx.redirect('/newproblem')),
                 rx.button("Sign in To create a new problem")),
+        rx.logo(),
         footer(),
         
         padding="1rem",

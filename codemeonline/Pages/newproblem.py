@@ -66,6 +66,7 @@ def newproblem () -> rx.Component:
     return rx.vstack(
         navbar(),
         rx.cond(AuthState.logged_in, user_auth_problem(), user_not_auth_problem()),
+        rx.logo(),
         footer(),
         width="100%",
         padding="1rem",

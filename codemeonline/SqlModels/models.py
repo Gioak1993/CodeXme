@@ -15,7 +15,6 @@ class User(rx.Model, table=True):
     email: str =Field(index=True)
     created_at: datetime = Field(default_factory=get_current_datetime, nullable=False)
 
-
 class ProblemCategoryLink(rx.Model, table = True):
     problem_id: int | None = Field(default=None, foreign_key="problem.id", primary_key=True)
     category_id: int | None = Field(default=None, foreign_key="category.id", primary_key=True)
