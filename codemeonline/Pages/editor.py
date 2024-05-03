@@ -7,9 +7,9 @@ def editor ()-> rx.Component:
     return rx.vstack(
         navbar(),
         rx.heading('Playground', 
-                   as_='h1', 
-                   align='center', 
-                   size='8'),
+                as_='h1', 
+                align='center', 
+                size='8'),
         rx.markdown('''Whether you're at your desktop or on the go, you can dive into coding.\
                         Learn from your phone or tablet—it's all within reach. Our playground is here for you,
                         whether you're honing your skills or exploring a new language.''',
@@ -17,6 +17,7 @@ def editor ()-> rx.Component:
                         size='7',
         ),
         code_area(),
+        rx.logo(),
         footer(),
         width='100%',
         padding = "1rem",
