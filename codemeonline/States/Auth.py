@@ -56,7 +56,6 @@ class AuthState(rx.State):
                 if is_correct_password == True:
                     self.user = user
                     self.user_id_cookie = user.id
-                    print(self.user_id_cookie)
                     return rx.redirect("/")
                 else:
                     return rx.window_alert("Invalid username or password.")

@@ -40,6 +40,7 @@ def login():
         ),
         
     ),
+    rx.logo(),
     footer(),
     min_height="100vh",
     padding="1rem",

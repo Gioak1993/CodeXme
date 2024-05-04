@@ -20,16 +20,13 @@ from .SqlModels.models import *
 class State(rx.State):
     """The app state."""
 
-    
-
-
 app = rx.App(
     theme=rx.theme(
         has_background=True,
         radius="full",
         accent_color="cyan",
     ),
-    stylesheets=['https://fonts.googleapis.com/css2?family=Roboto:ital&display=swap'], style={"font_family":"Roboto, sans-serif"}
+    stylesheets=['https://fonts.googleapis.com/css2?family=Roboto:ital&display=swap'], #style={"font_family":"Roboto, sans-serif"}
 )
 app.add_page(index, route='/')
 app.add_page(editor, route='/playground')

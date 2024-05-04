@@ -10,7 +10,7 @@ load_dotenv()
 class JudgeZeroApi:
 
     def __init__(self, language_id:int, source_code:str) -> None:
-        # source_code = base64.b64encode(source_code.encode(( 'utf-8')))
+
         self.language_id = language_id
         self.source_code = source_code
 

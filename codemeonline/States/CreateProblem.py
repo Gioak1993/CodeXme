@@ -30,28 +30,13 @@ class CreateProblem (rx.State):
         test_case: dict | None 
 
         with rx.session() as session:
-            self.category_data = await self.get_state(CategoryState)
-            print (self.category_data.categories)
-            
-            category_dat = [catego for catego in self.category_data.categories if catego.name in self.category] 
-            print(category_dat)
-            problem = Problem(title=self.title, description=self.description, difficulty=self.difficulty, user_id=self.user_id, created_at=datetime.now(UTC), categories=category_dat)      
+            self.category_data = await self.get_state(CategoryState)            
+            category_problem_list = [item for item in self.category_data.categories if item.name in self.category] 
+            problem = Problem(title=self.title, description=self.description, difficulty=self.difficulty, user_id=self.user_id, created_at=datetime.now(UTC), categories=category_problem_list)      
             session.add(problem)
             session.expire_on_commit = False
             session.commit()
-            
-            # with rx.session() as session:
-            #         committedproblem = session.exec(
-            #             Problem.select().where(
-            #                 Problem.title.contains(self.title)
-            #             )
-            #         ).first()
-            #         for key, value in self.input_output.items():
-            #             test_case = TestCase(input_data=key, expected_output= value, problem_id=committedproblem.id)
-            #             session.add(test_case)
 
-            # return rx.redirect("/problems")
-        
     def add_category (self, item: str):
 
         if item not in self.category:

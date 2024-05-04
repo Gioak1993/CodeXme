@@ -12,4 +12,3 @@ class CategoryState(rx.State):
         with rx.session() as session:
             self.categories = session.exec(select(Category)).all()
             self.names = [name.name for name in self.categories]
-            print (self.categories, sep='    ' )

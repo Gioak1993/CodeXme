@@ -1,5 +1,6 @@
 import reflex as rx
 from codemeonline.API.judgezeroApi import JudgeZeroApi
+import time
 
 class EditedCode(rx.State):
 
@@ -9,26 +10,20 @@ class EditedCode(rx.State):
     language_id: int = 92
     language_name: str = "python"
     default_value: str = ""
+    code_input: str = ""
     
-
     def changetext(self, new_text:str):
-        
+
         self.value: str = new_text
-        print (self.value)
-
-    def clear_input (self):
-
-        self.value = ""
-        print (self.value)
+        print(self.value)
 
     def setlanguage_code (self, lang):
 
         self.language_id = lang
-        print (self.language_id)
 
     def setlanguage_name (self, lang_name):
+
         self.language_name = lang_name.lower()
-        print (self.language_name)
 
     def set_loading(self):
         self.output= "Loading..."
@@ -44,10 +39,10 @@ class EditedCode(rx.State):
             description = status ['description']
             if type(stdout) == str:
                 self.output = stdout
-                print (stdout, type(stdout))
+            
             elif type(stdout) == type(None):
                 self.output = stderror
-                print (stdout, type(stderror))
+
             else:
                 self.output = "The server cant respond right now due to many of requests, wait a few minutes"
         else:
