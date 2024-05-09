@@ -2,27 +2,18 @@ import reflex as rx
 from codemeonline.Components.navbar import navbar
 from ..Components.footer import footer
 from ..States.Auth import AuthState
+from ..States.QueryProblems import QueryProblems
 from ..SqlModels.models import Problem
 from sqlmodel import select
 
-class QueryProblems(rx.State):
-
-    problems: list[Problem]
-    columns: list[str] 
-    title: list = []
-    description: list = []
-    difficulty: list = []
-
-    def get_all_problems(self):
-        with rx.session() as session:
-            self.problems = session.exec(select(Problem)).all()
-            print (self.problems)
-
 
 def problems_list():
+
     return rx.data_table(
-        data = QueryProblems.get_all_problems,
-        columns= QueryProblems.columns
+        data = QueryProblems.problems,
+        columns= QueryProblems.columns,
+        on_click= rx.redirect("/"),
+
     )
 
 
@@ -34,7 +25,8 @@ def problems () -> rx.Component:
         problems_list(),
         rx.cond(AuthState.logged_in,
                 rx.button("Create a new Problem here!", on_click=lambda: rx.redirect('/newproblem')),
-                rx.button("Sign in To create a new problem")),
+                rx.button("Sign in To create a new problem", on_click=lambda: rx.redirect('/login')),
+        ),
         rx.logo(),
         footer(),
         

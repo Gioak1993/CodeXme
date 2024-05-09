@@ -11,8 +11,6 @@ class CodeArea(rx.Component):
     tag= "Editor"
     is_default=True
 
-
-
     """props"""
     defaultLanguage: str = "python"
     defaultValue: str = ""
@@ -20,7 +18,8 @@ class CodeArea(rx.Component):
     value: rx.Var[str] = ""
     theme: str = "vs-dark"
     width: str = "100%"
-    options: dict = {"readOnly" : "false", "lineNumbers": "on"}
+    options: dict = {"readOnly" : "false", "lineNumbers": "on", "minimap": {"enabled": "true"}}
+    line: int = 1
     on_change: rx.EventHandler[lambda e0: [e0]]
 
 codearea = CodeArea.create
@@ -32,7 +31,6 @@ def desktop_code_card() -> rx.Component:
             rx.flex(
                 rx.vstack(
                     rx.hstack(
-                        # rx.button('Clear', on_click=lambda: EditedCode.clear_input, type= 'reset'),
                         rx.button(rx.icon('play'),'Run', on_click=[lambda: EditedCode.set_loading, lambda: EditedCode.compilecode,]),
                         rx.menu.root(
                             rx.menu.trigger(
@@ -52,7 +50,8 @@ def desktop_code_card() -> rx.Component:
                             ),
                         rx.vstack(
                             rx.text("Output", size="2"),
-                            rx.code(EditedCode.output, size='1', variant='ghost'),
+                            codearea(value = EditedCode.output, language="", options = {"readOnly" : "true", "lineNumbers": "off"}),
+                            # rx.code(EditedCode.output, size='1', variant='ghost'),
                             width="100%",
                             height="100%",
                             ),
@@ -97,7 +96,7 @@ def mobile_code_card() -> rx.Component:
                             height="100%",
                             ),
                     rx.tabs.content(
-                            rx.code(EditedCode.output, size='1', variant='ghost'),
+                            codearea(value = EditedCode.output, language="", options = {"readOnly" : "true", "lineNumbers": "off"}),
                             value='output',
                             width="100%",
                             height="100%",

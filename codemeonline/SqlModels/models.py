@@ -1,5 +1,5 @@
 import reflex as rx
-from sqlmodel import Field, SQLModel, Relationship
+from sqlmodel import Field, SQLModel, Relationship, ARRAY
 from datetime import datetime, UTC
 from decimal import Decimal
 
@@ -24,10 +24,13 @@ class Problem(rx.Model, table=True):
 
     id: int | None = Field(default=None, primary_key=True)
     title: str =Field(index=True)
+    handle_title: str = Field(index=True)
     description: str
     difficulty: str =Field(index=True)
     user_id: int | None = Field(default=None, foreign_key= "user.id")
-    created_at: datetime 
+    created_at: datetime
+    input_number_variables: int  
+    output_number_variables: int 
     categories: list["Category"] = Relationship(back_populates="problems", link_model=ProblemCategoryLink)
     
 

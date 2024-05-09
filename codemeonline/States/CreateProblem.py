@@ -8,6 +8,7 @@ from ..SqlModels.models import Problem, TestCase
 class CreateProblem (rx.State):
 
     title:str
+    handle_title:str
     description: str
     difficulty: str 
     difficulty_list: list[str] = ["Easy", "Medium", "Hard", "Extreme"]
@@ -16,6 +17,8 @@ class CreateProblem (rx.State):
     category: list[str]
     input_case:str
     output_case:str
+    input_number:str        # the number of variables expected, if you expect two arrays to be inserted then the answer is 2
+    output_number: str         # the number of output variables expected. if you expect the program to return 3 different numbers then the answer is 3
     category_data: list[str]
 
     #take the current user
@@ -31,8 +34,9 @@ class CreateProblem (rx.State):
 
         with rx.session() as session:
             self.category_data = await self.get_state(CategoryState)            
-            category_problem_list = [item for item in self.category_data.categories if item.name in self.category] 
-            problem = Problem(title=self.title, description=self.description, difficulty=self.difficulty, user_id=self.user_id, created_at=datetime.now(UTC), categories=category_problem_list)      
+            category_problem_list = [item for item in self.category_data.categories if item.name in self.category]
+            self.handle_title = self.title.replace(" ", "-").strip().lower() 
+            problem = Problem(title=self.title, handle_title=self.handle_title , description=self.description, difficulty=self.difficulty, user_id=self.user_id, created_at=datetime.now(UTC), categories=category_problem_list, input_number_variables=self.input_number, output_number_variables=self.output_number)      
             session.add(problem)
             session.expire_on_commit = False
             session.commit()
@@ -67,4 +71,14 @@ class CreateProblem (rx.State):
 
         self.output_case = new_input
         print(self.output_case)
+
+    def set_number_input_variables(self, number_input_variables):
+
+        self.input_number = number_input_variables
+
+    def set_number_output_variables(self, number_output_variables):
+
+        self.output_number = number_output_variables
+
+
 
