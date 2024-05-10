@@ -11,14 +11,21 @@ codearea= CodeArea.create
 
 class Results(rx.State):
 
+    display_result:str = "Once submitted, you'll see your result here"
     results:bool = False
 
     async def get_results(self):
+
+        self.display_result = "Loading..."
 
         editecode = await self.get_state(EditedCode)
         getproblem = await self.get_state(GetProblem)
         if editecode.output.strip() == getproblem.each_output.strip():
             self.results = True
+            self.display_result = "Congratulations, your code its correct!"
+        else:
+            self.results = False
+            self.display_result = "Your code failed, but dont worry you can try again!"
 
         print (editecode.output, getproblem.each_output)
 
@@ -28,7 +35,7 @@ def problem_challenge () ->rx.Component:
     return rx.desktop_only(
         rx.vstack(
                 navbar(),
-                rx.heading(GetProblem.title),
+                rx.heading(GetProblem.title, padding = '1rem',),
                 rx.card(
                     rx.flex(
                         rx.vstack(
@@ -48,13 +55,13 @@ def problem_challenge () ->rx.Component:
                             ),
                             rx.hstack(
                                     rx.vstack(
-                                        rx.heading("Description", size="2", as_='h3'),
-                                        codearea(value=GetProblem.description, language="cobol", options = {"readOnly" : "false", "lineNumbers": "off", "minimap": {"enabled": "false"}}, line=5 ),
-                                        width="100%",
-                                        height="100%",
+                                        rx.text("Description", size="5", weight='bold',),
+                                            rx.code_block(wrap_long_lines=True, code=GetProblem.description, language="wiki", show_line_numbers=False ), #, options = {"readOnly" : "false", "lineNumbers": "off", "minimap": {"enabled": "false"}}, line=5 ),
+                                            width="100%",
+                                            height="100%",  
                                         ),
                                     rx.vstack(
-                                        rx.text("Your Code", size="2"),
+                                        rx.text("Your Code", size="5", weight='bold',),
                                         codearea(value = GetProblem.answer, language=EditedCode.language_name, on_change=EditedCode.changetext),
                                         width="100%",
                                         height="100%",
@@ -62,30 +69,32 @@ def problem_challenge () ->rx.Component:
                             width='100%',
                             height="100%",
                         ),
+                    
                     rx.heading('Your result', as_='h4'),
                         rx.cond(Results.results,
-                            rx.badge("Congratulations! you made it", color_scheme="green"),
-                            rx.badge("Waiting for your code or you have some mistake", color_scheme="red"),
-                        ),
+                            rx.badge(Results.display_result, color_scheme="green"),
+                            rx.badge(Results.display_result, color_scheme="red"),
+                        
+                    ),
+                    align='center',
                     width='100%',
-                    height='90vh',
+                    height='auto',
+                    min_height = '100%',
+                    ),
+                    flex_wrap="wrap",
                     ),
                     width='100%',
-                    height='100%',
-                    ),
-                    width="100%",
-                    
                 ),
 
 
-
+                rx.logo(),
                 footer(),
                 align='center',
                 padding='1rem',
                 width='100%',
-                min_height='100vh'
+                # min_height='100vh'
 
     ),
     width='100%',
-    min_height='100vh',
+    # min_height='100vh',
 )
