@@ -46,7 +46,7 @@ def problem_challenge () ->rx.Component:
                                         rx.button(rx.icon("square-code"),"Language", variant="soft"),
                                         ),
                                         rx.menu.content(
-                                                rx.foreach(LanguagesState.languages, dropdown_lang)
+                                                rx.foreach(LanguagesState.challenge_language, dropdown_lang)
                                         ),
                                 ),
                                 rx.spacer(),

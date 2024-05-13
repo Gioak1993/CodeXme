@@ -3,21 +3,29 @@ import reflex as rx
 from ..SqlModels.models import Problem, TestCase
 from sqlmodel import select
 from datetime import datetime
-import ast
+
 
 class QueryProblems(rx.State):
 
     problems: list[Problem]
-    columns: list[dict[str,str]] = ["Title", "Difficulty"]
-    title: list = []
-    description: list = []
-    difficulty: list = []
-    query_problem:list[Problem]
+    query: str
+    pagination: int 
+    limit: int = 2
+    offset: int = 0
+
 
     def get_all_problems(self):
         with rx.session() as session:
-            self.problems = session.exec(select(Problem)).all()
-            print (self.problems)
+            self.problems = session.exec(select(Problem).offset(self.offset).limit(self.limit)).all()
+            
+
+
+    def get_problem_by_word(self):
+        with rx.session() as session:
+            self.problems = session.exec(select(Problem).where(Problem.title.contains(self.query.capitalize()))).all()
+            print(self.problems, self.query)
+
+
 
 class GetProblem(rx.State):
 

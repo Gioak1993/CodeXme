@@ -32,6 +32,10 @@ class LanguagesState(rx.State):
         "R": 80,
         "Ruby": 72,
         "Scala": 81,
+    }
+
+    challenge_language: dict[str,str] = {
+        "Python": 92,
 
     }
 
