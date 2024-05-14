@@ -34,7 +34,7 @@ app.add_page(index, route='/', title="Codexme, your web to try, practice and lea
 app.add_page(editor, route='/playground')
 app.add_page(login, route='/login')
 app.add_page(signup, route='/signup')
-app.add_page(problems,  route='/problems', on_load=QueryProblems.get_all_problems)
+app.add_page(problems,  route='/challenges', on_load=QueryProblems.get_all_problems)
 app.add_page(newproblem,  route='/newproblem', on_load=[CategoryState.get_categories, CreateProblem.get_user])
-app.add_page(problem_challenge, route='problems/[handle-title]', on_load= [GetProblem.get_problem_by_handle_title,  GetProblem.extract_input_output])
+app.add_page(problem_challenge, route='challenges/[handle-title]', on_load= [GetProblem.get_problem_by_handle_title,  GetProblem.extract_input_output])
 

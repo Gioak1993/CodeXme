@@ -29,6 +29,13 @@ def dekstop_navbar() -> rx.Component:
                         on_click= rx.redirect('/playground'),
                         cursor='pointer',
                     ),
+                    rx.text('Challenges',
+                        rx.badge("beta", 
+                                 margin="0.2rem",),
+                        on_click= rx.redirect('/challenges'),
+                        cursor='pointer',
+                        
+                    ),
                     light_dark_button(),
                     signup_button(),
                     width='100%',
@@ -58,8 +65,14 @@ def mobile_navbar() ->rx.Component:
                             rx.menu.content(
                                 rx.menu.item('Home', on_click=lambda: rx.redirect('/')),
                                 rx.menu.item('Playground', on_click=lambda: rx.redirect('playground')),
+                                rx.menu.item('Challenges',
+                                            rx.badge("beta", 
+                                                    margin="0.2rem",
+                                            ), 
+                                            on_click=lambda: rx.redirect('challenges')),
                                 signup_button(),
                                 size='2',
+                                text_align='center',
                                 align='center',
                                 side='bottom',
                             )

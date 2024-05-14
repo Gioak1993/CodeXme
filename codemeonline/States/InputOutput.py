@@ -6,7 +6,13 @@ class InputOutput(rx.State):
 
     input_output_field: list[str] = [' ']
     editable: bool
+    show_section: bool = False
+
     #add a field when the user wants to add more than one category
+    
+    def change_visibility(self):
+        
+        self.show_section = not self.show_section
 
     def add_field(self):
         self.input_output_field.append('value')

@@ -10,7 +10,7 @@ class QueryProblems(rx.State):
     problems: list[Problem]
     query: str
     pagination: int 
-    limit: int = 2
+    limit: int = 20
     offset: int = 0
 
 
@@ -118,6 +118,8 @@ class GetProblem(rx.State):
 
         name_inputs:str = ""
 
+
+
         for item  in range(self.input_variables):
             
             name_inputs += f', num{item}'
@@ -125,6 +127,8 @@ class GetProblem(rx.State):
             
         self.answer = f'''class Solution(object):
     def answer(self{name_inputs}):'''
+        
+
         
 
 

@@ -22,14 +22,14 @@ class DynamicInputState(rx.State):
 
 def dropdown_category() -> rx.Component:
     return rx.vstack(
-                rx.foreach(DynamicInputState.categories_list, dropdown2),
+                rx.foreach(DynamicInputState.categories_list, dropdown_item),
                 rx.hstack(
                 rx.button("Add", on_click=DynamicInputState.add_field),
                 rx.button("Delete", on_click=[DynamicInputState.delete_field, CreateProblem.del_category], color_scheme='red'),),
                 align='center',
     )
 
-def dropdown2(item) -> rx.Component:
+def dropdown_item(item) -> rx.Component:
     return rx.select( CategoryState.names, placeholder='Select a category',on_change=CreateProblem.add_category)
 
 

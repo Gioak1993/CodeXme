@@ -3,10 +3,12 @@ from sqlmodel import select
 from datetime import datetime, UTC
 from ..States.CreateProblem import CreateProblem
 from ..States.Auth import AuthState
-from ..Components.categoryButton import dropdown_category, dropdown2
+from ..States.InputOutput import InputOutput
+from ..Components.category_button import dropdown_category
 from ..Components.navbar import navbar
 from ..Components.footer import footer
 from ..States.InputOutput import input_output_pair
+
 
 
 #dropdown difficulty component
@@ -33,7 +35,7 @@ def user_auth_problem() -> rx.Component:
                     type="text",
                     placeholder="",
                     on_blur=CreateProblem.set_title,
-                    width="100%",
+                    width = "70vw",
                 ),
                 rx.heading('Description'),
                 rx.text_area(
@@ -41,30 +43,29 @@ def user_auth_problem() -> rx.Component:
                     placeholder="Type your description here ",
                     on_blur=CreateProblem.set_description,
                     size="3",
+                    height= "700px",
+                    width = "80%",
                 ),
                 rx.heading('Difficulty'),
                 dropdown_difficulty(),
                 rx.heading('Category'),
                 dropdown_category(),
                 rx.text("Set your number of input variables"),
-                rx.input(
-                    placeholder="Type the number of input variables required",
-                    type="text",
-                    on_blur=CreateProblem.set_number_input_variables,
-                    width="100%",),
+                rx.select(['1','2','3','4','5'], placeholder="Select input", on_change=CreateProblem.set_number_input_variables),
                 rx.text("Set your number of output variables"),
-                rx.input(
-                    placeholder="Type the number of output variables required",
-                    type="text",
-                    on_blur=CreateProblem.set_number_output_variables,
-                    width="100%",),
-                rx.button("Create Problem", on_click=[CreateProblem.create_problem], size="3",),
-                rx.heading('Inputs/Outputs'),
-                input_output_pair(),
-                
+                rx.select(['1','2','3','4','5'], placeholder="Select input", on_change=CreateProblem.set_number_output_variables),
+                rx.button("Create Problem", on_click=[CreateProblem.create_problem, InputOutput.change_visibility], size="3",),
+                rx.cond(InputOutput.show_section,
+                        rx.section(
+                            rx.heading('Inputs/Outputs'),
+                            rx.text("This section appears after a click"),
+                            input_output_pair(),
+                        ),
+                        rx.text("Once you create the problem, then we are going to store the inputs and outputs")
+                ),
                 spacing="4",
                 align="center",
-                widht='100%',
+                width='100%',
             ),
             align_items="start",
             border="1px solid #eaeaea",
