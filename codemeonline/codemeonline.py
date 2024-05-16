@@ -11,7 +11,8 @@ from .Pages.newproblem import newproblem
 from .Pages.problemchallenge import problem_challenge
 from .States.CategoryState import CategoryState
 from .States.CreateProblem import CreateProblem
-from .States.QueryProblems import QueryProblems, GetProblem
+from .States.QueryProblems import QueryProblems
+from .States.GetProblem import GetProblem
 from .SqlModels.models import * 
 
 
@@ -28,8 +29,8 @@ app = rx.App(
         radius="full",
         accent_color="cyan",
     ),
-    stylesheets=['https://fonts.googleapis.com/css2?family=Roboto:ital&display=swap'], #style={"font_family":"Roboto, sans-serif"}
 )
+
 app.add_page(index, route='/', title="Codexme, your web to try, practice and learn new programming languages!")
 app.add_page(editor, route='/playground')
 app.add_page(login, route='/login')

@@ -1,5 +1,4 @@
 import reflex as rx
-from codemeonline.API.judgezeroApi import JudgeZeroApi
 from codemeonline.States.EditedCode import EditedCode
 from codemeonline.States.Languages import dropdown_lang, LanguagesState
 
@@ -51,7 +50,6 @@ def desktop_code_card() -> rx.Component:
                         rx.vstack(
                             rx.text("Output", size="2"),
                             codearea(value = EditedCode.output, language="", options = {"readOnly" : "true", "lineNumbers": "off"}),
-                            # rx.code(EditedCode.output, size='1', variant='ghost'),
                             width="100%",
                             height="100%",
                             ),
@@ -101,9 +99,9 @@ def mobile_code_card() -> rx.Component:
                             width="100%",
                             height="100%",
                             ),
-                            default_value='input',
-                        width="100%",
-                        height="100%",
+                    default_value='input',
+                    width="100%",
+                    height="100%",
                     ),
                 width="100%",
 

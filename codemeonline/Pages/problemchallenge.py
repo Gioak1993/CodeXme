@@ -1,7 +1,7 @@
 import reflex as rx
-from ..States.QueryProblems import QueryProblems, GetProblem
 from ..States.Languages import LanguagesState, dropdown_lang
-from ..States.EditedCode import EditedCode, GetProblem
+from ..States.EditedCode import EditedCode
+from ..States.GetProblem import GetProblem
 from ..Components.navbar import navbar
 from ..Components.footer import footer
 from ..Components.codeArea import CodeArea
@@ -20,15 +20,11 @@ class Results(rx.State):
 
         editecode = await self.get_state(EditedCode)
         getproblem = await self.get_state(GetProblem)
-        if editecode.output.strip() == getproblem.each_output.strip():
+        if editecode.output.strip().replace(" ", "") == getproblem.each_output.strip().replace(" ", ""): ##remove the spaces so you can compare the outputs regardless of what the user type hen creatng the problem
             self.results = True
             self.display_result = "Congratulations, your code its correct!"
         else:
-            self.results = False
             self.display_result = "Your code failed, but dont worry you can try again!"
-
-        print (editecode.output, getproblem.each_output)
-
 
 
 

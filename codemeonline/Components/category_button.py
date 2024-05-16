@@ -32,27 +32,3 @@ def dropdown_category() -> rx.Component:
 def dropdown_item(item) -> rx.Component:
     return rx.select( CategoryState.names, placeholder='Select a category',on_change=CreateProblem.add_category)
 
-
-
-
-
-
-
-
-# def dropdown_category_selection(categories_list:list[str]) -> rx.Component:
-
-#         return rx.select.root(
-#                         rx.select.trigger(placeholder="Select a Category"),
-#                             rx.select.content(
-#                                 rx.select.group(
-#                                     rx.select.label('Category'),
-#                                         rx.foreach(CategoryState.names, dropdown_category_item),
-#                                 ),
-#                         ),
-#         )
-
-# #function made for use on foreach to choose category
-# def dropdown_category_item(category_item) -> rx.Component:
-#     return  rx.select.item(
-#                 rx.text(category_item, on_click=CreateProblem.add_category(category_item),)
-# )

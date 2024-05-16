@@ -1,5 +1,4 @@
 import reflex as rx
-from codemeonline.API.judgezeroApi import JudgeZeroApi
 from codemeonline.States.EditedCode import EditedCode
 
 class LanguagesState(rx.State):

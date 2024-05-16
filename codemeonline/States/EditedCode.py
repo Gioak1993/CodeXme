@@ -1,7 +1,7 @@
 import reflex as rx
 from codemeonline.API.judgezeroApi import JudgeZeroApi
-from .QueryProblems import GetProblem
-import time
+from .GetProblem import GetProblem
+
 
 class EditedCode(rx.State):
 
