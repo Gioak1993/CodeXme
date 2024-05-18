@@ -56,8 +56,8 @@ class GetProblem(rx.State):
                         self.output_list.append(item.expected_output)
 
                 # self.each_input=''
-                self.solutions=''
-                self.each_output=''
+                self.solutions = ''
+                self.each_output = ''
 
                 for index, item in enumerate(self.input_list):
 

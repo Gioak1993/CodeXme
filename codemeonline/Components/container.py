@@ -8,12 +8,12 @@ def container(*children, **props):
     # Enable override of default props.
     props = (
         dict(
-            width="100%",
-            max_width="960px",
-            height="100%",
-            px="9",
-            margin="0 auto",
-            position="relative",
+            width = "100%",
+            max_width = "960px",
+            height = "100%",
+            px = "9",
+            margin = "0 auto",
+            position = "relative",
         )
         | props
     )

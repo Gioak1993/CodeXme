@@ -6,9 +6,9 @@ from codemeonline.States.Languages import dropdown_lang, LanguagesState
 class CodeArea(rx.Component):
     '''the text area where the code will be edited'''
 
-    library= "@monaco-editor/react"
-    tag= "Editor"
-    is_default=True
+    library = "@monaco-editor/react"
+    tag = "Editor"
+    is_default = True
 
     """props"""
     defaultLanguage: str = "python"
@@ -30,10 +30,10 @@ def desktop_code_card() -> rx.Component:
             rx.flex(
                 rx.vstack(
                     rx.hstack(
-                        rx.button(rx.icon('play'),'Run', on_click=[lambda: EditedCode.set_loading, lambda: EditedCode.compilecode,]),
+                        rx.button(rx.icon('play'),'Run', on_click = [lambda: EditedCode.set_loading, lambda: EditedCode.compilecode,]),
                         rx.menu.root(
                             rx.menu.trigger(
-                                rx.button(rx.icon("square-code"),"Language", variant="soft"),
+                                rx.button(rx.icon("square-code"),"Language", variant = "soft"),
                             ),
                                 rx.menu.content(
                                         rx.foreach(LanguagesState.languages, dropdown_lang)
@@ -42,28 +42,28 @@ def desktop_code_card() -> rx.Component:
                     ),
                     rx.hstack(
                         rx.vstack(
-                            rx.text("Input", size="2"),
-                            codearea(EditedCode.code_input, language= EditedCode.language_name, on_change= EditedCode.changetext ),
-                            width="100%",
-                            height="100%",
+                            rx.text("Input", size = "2"),
+                            codearea(EditedCode.code_input, language = EditedCode.language_name, on_change = EditedCode.changetext ),
+                            width = "100%",
+                            height = "100%",
                             ),
                         rx.vstack(
-                            rx.text("Output", size="2"),
-                            codearea(value = EditedCode.output, language="", options = {"readOnly" : "true", "lineNumbers": "off"}),
-                            width="100%",
-                            height="100%",
+                            rx.text("Output", size = "2"),
+                            codearea(value = EditedCode.output, language = "", options = {"readOnly" : "true", "lineNumbers": "off"}),
+                            width = "100%",
+                            height = "100%",
                             ),
-                        width="100%",
-                        height="100%",
+                        width = "100%",
+                        height = "100%",
                     ),
-                width="100%",
+                width = "100%",
                 ),
-            height='80vh',
+            height = '80vh',
             width = '100%',
             ),
-            width='100%',
+            width = '100%',
     ),
-    width='100%',
+    width = '100%',
 )
 
 def mobile_code_card() -> rx.Component:
@@ -72,10 +72,10 @@ def mobile_code_card() -> rx.Component:
             rx.flex(
                 rx.vstack(
                     rx.hstack(
-                        rx.button(rx.icon('play'),'Run', on_click=[lambda: EditedCode.set_loading,lambda: EditedCode.compilecode,]),
+                        rx.button(rx.icon('play'),'Run', on_click = [lambda: EditedCode.set_loading,lambda: EditedCode.compilecode,]),
                         rx.menu.root(
                             rx.menu.trigger(
-                                rx.button(rx.icon("square-code"),"Language", variant="soft"),
+                                rx.button(rx.icon("square-code"),"Language", variant = "soft"),
                             ),
                                 rx.menu.content(
                                         rx.foreach(LanguagesState.languages, dropdown_lang)
@@ -84,34 +84,34 @@ def mobile_code_card() -> rx.Component:
                     ),
                     rx.tabs.root(
                         rx.tabs.list(
-                            rx.tabs.trigger('Input', value='input'),
-                            rx.tabs.trigger('Output', value='output'),
+                            rx.tabs.trigger('Input', value = 'input'),
+                            rx.tabs.trigger('Output', value = 'output'),
                         ),
                     rx.tabs.content(
-                            codearea(value=EditedCode.code_input, language= EditedCode.language_name, on_change= EditedCode.changetext),
-                            value='input',
-                            width="100%",
-                            height="100%",
+                            codearea(value=EditedCode.code_input, language = EditedCode.language_name, on_change = EditedCode.changetext),
+                            value = 'input',
+                            width = "100%",
+                            height = "100%",
                             ),
                     rx.tabs.content(
-                            codearea(value = EditedCode.output, language="", options = {"readOnly" : "true", "lineNumbers": "off"}),
-                            value='output',
-                            width="100%",
-                            height="100%",
+                            codearea(value = EditedCode.output, language = "", options = {"readOnly" : "true", "lineNumbers": "off"}),
+                            value = 'output',
+                            width = "100%",
+                            height = "100%",
                             ),
-                    default_value='input',
-                    width="100%",
-                    height="100%",
+                    default_value = 'input',
+                    width = "100%",
+                    height = "100%",
                     ),
-                width="100%",
+                width = "100%",
 
                 ),
-            height='90vh',
+            height = '90vh',
             width = '100%',
             ),
-            width='100%',
+            width = '100%',
     ),
-    width='100%',
+    width = '100%',
 )
 
 
@@ -119,8 +119,8 @@ def code_area():
     return rx.stack(
         desktop_code_card(),
         mobile_code_card(),
-        width='100%',
-        height='100%',
+        width = '100%',
+        height = '100%',
     )
 
 

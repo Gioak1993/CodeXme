@@ -7,9 +7,9 @@ def problems_list (item) -> rx.Component:
 
     return rx.table.row(
                 rx.table.cell(item.title, 
-                            on_click= lambda: rx.redirect(f'/challenges/{item.handle_title}'), 
-                            cursor='pointer',
-                            font_weight='bold',
+                            on_click = lambda: rx.redirect(f'/challenges/{item.handle_title}'), 
+                            cursor = 'pointer',
+                            font_weight = 'bold',
                             ),
                 rx.table.cell(item.difficulty),        
     )
@@ -21,17 +21,17 @@ def problems_table() -> rx.Component:
 
     return rx.flex(
                 rx.flex(
-                    rx.input(placeholder="Search..", 
-                            value='', 
-                            on_change=[QueryProblems.set_query]
+                    rx.input(placeholder = "Search..", 
+                            value = '', 
+                            on_change = QueryProblems.set_query,
                     ),
                     rx.button("Search", 
-                            on_click=QueryProblems.get_problem_by_word,
+                            on_click = QueryProblems.get_problem_by_word,
                             
                         ),
-                    justify="center",
-                    spacing="2",
-                    margin="0.5rem",
+                    justify = "center",
+                    spacing = "2",
+                    margin = "0.5rem",
                 ),
                 rx.table.root(
                     rx.table.header(
@@ -44,10 +44,10 @@ def problems_table() -> rx.Component:
                         rx.foreach(QueryProblems.problems, problems_list),
     
                     ),
-                    variant='surface',
+                    variant = 'surface',
                 ),
             
-                direction="column",
-                spacing="2",
-                width='80%',
+                direction = "column",
+                spacing = "2",
+                width = '80%',
 )

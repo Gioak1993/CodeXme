@@ -62,7 +62,7 @@ class CreateProblem (rx.State):
                 query_problem = session.exec(select(Problem).where(Problem.handle_title == self.handle_title)).first()
                 max_id = session.exec(func.max(TestCase.id)).scalar() or 0
                 next_id = max_id + 1
-                input_output = TestCase(id=next_id, input_data=self.input_case, expected_output=self.output_case, problem_id=query_problem.id)
+                input_output = TestCase( id = next_id, input_data = self.input_case, expected_output = self.output_case, problem_id = query_problem.id)
                 session.add(input_output)
                 session.expire_on_commit = False
                 session.commit()
@@ -75,12 +75,6 @@ class CreateProblem (rx.State):
                 # Rollback the transaction
                 session.rollback()
 
-  # if self.input_case == '' or self.output_case:
-        #     pass
-        # else:
-        #     self.input_output[self.input_case]=self.output_case  ##this create a new entry for a dictionary 
-        #     print (self.input_output)
-
     def delete_input_output (self, item: int):
 
         with rx.session() as session:
@@ -91,11 +85,6 @@ class CreateProblem (rx.State):
             session.commit()
 
             self.current_input_output = session.exec(select(TestCase).where(TestCase.problem_id  == query_problem.id)).all()
-
-            # self.current_input_output = session.exec(select(TestCase).where(TestCase.problem_id  == query_problem.id)).all()
-
-
-
 
     def set_input_case(self, new_input):
 

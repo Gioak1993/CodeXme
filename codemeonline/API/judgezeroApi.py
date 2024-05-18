@@ -33,7 +33,7 @@ class JudgeZeroApi:
             "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
         }
 
-        response = requests.post(url, json=payload, headers=headers, params=querystring)
+        response = requests.post(url, json = payload, headers = headers, params = querystring)
         print (response.json())
         if response.status_code == 201:
             response_data = response.json()
@@ -50,11 +50,11 @@ class JudgeZeroApi:
                 }
                 response = requests.get(url, headers=headers, params=querystring)
 
-                data_response= response.json()
+                data_response = response.json()
                 print (data_response)
                 return data_response
         
-            return get_results(token=token)
+            return get_results(token = token)
         else:
             print(f"Failed to get valid response. Status Code: {response.status_code}")            
 
