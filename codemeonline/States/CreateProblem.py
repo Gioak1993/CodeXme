@@ -13,7 +13,6 @@ class CreateProblem (rx.State):
     description: str
     difficulty: str 
     difficulty_list: list[str] = ["Easy", "Medium", "Hard", "Extreme"]
-    # input_output: dict
     user_id: str
     category: list[str]
     input_case:str
@@ -32,10 +31,12 @@ class CreateProblem (rx.State):
     #save the data on the Problem database
     async def create_problem (self):
 
+        self.category_data = await self.get_state(CategoryState)            
+        category_problem_list = [item for item in self.category_data.categories if item.name in self.category]
+        self.handle_title = self.title.replace(" ", "-").strip()
+        
         with rx.session() as session:
-            self.category_data = await self.get_state(CategoryState)            
-            category_problem_list = [item for item in self.category_data.categories if item.name in self.category]
-            self.handle_title = self.title.replace(" ", "-").strip()
+            
             problem = Problem(title=self.title, handle_title=self.handle_title , description=self.description, difficulty=self.difficulty, user_id=self.user_id, created_at=datetime.now(UTC), categories=category_problem_list, input_number_variables=self.input_number, output_number_variables=self.output_number)      
             session.add(problem)
             session.expire_on_commit = False
@@ -45,14 +46,14 @@ class CreateProblem (rx.State):
 
         if item not in self.category:
             self.category.append(item)
-            print(self.category)
+
 
     def del_category(self):
         if len(self.category) >= 1:
             del self.category[-1]
         else:
             pass
-        print(self.category)
+
 
     def add_input_output (self):
 
@@ -68,7 +69,7 @@ class CreateProblem (rx.State):
                 session.commit()
 
                 self.current_input_output = session.exec(select(TestCase).where(TestCase.problem_id  == query_problem.id)).all()
-         
+        
             except Exception as e:
                 # Handle the exception (e.g., log the error)
                 print(f"Error: {e}")
@@ -89,12 +90,10 @@ class CreateProblem (rx.State):
     def set_input_case(self, new_input):
 
         self.input_case = new_input
-        print(self.input_case)
 
     def set_output_case(self, new_input):
 
         self.output_case = new_input
-        print(self.output_case)
 
     def set_number_input_variables(self, number_input_variables):
 

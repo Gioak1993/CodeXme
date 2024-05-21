@@ -9,6 +9,7 @@ from .Pages.signup import signup
 from .Pages.problems import problems
 from .Pages.newproblem import newproblem
 from .Pages.problemchallenge import problem_challenge
+from .Pages.dashboard import dashboard, Dashboard
 from .States.CategoryState import CategoryState
 from .States.CreateProblem import CreateProblem
 from .States.QueryProblems import QueryProblems
@@ -38,4 +39,4 @@ app.add_page(signup, route='/signup')
 app.add_page(problems,  route='/challenges', on_load=QueryProblems.get_all_problems)
 app.add_page(newproblem,  route='/newproblem', on_load=[CategoryState.get_categories, CreateProblem.get_user])
 app.add_page(problem_challenge, route='challenges/[handle-title]', on_load= [GetProblem.get_problem_by_handle_title,  GetProblem.extract_input_output])
-
+app.add_page(dashboard, route='dashboard', on_load= [Dashboard.dashboard])

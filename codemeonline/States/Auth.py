@@ -64,10 +64,8 @@ class AuthState(rx.State):
             
     def logout(self):
         """Log out a user."""
-        if self.user_id_cookie == "2":
-            print(self.user_id_cookie)
+
         self.user_id_cookie = ""
-        print(self.user_id_cookie)
         return rx.redirect("/")
 
     def check_login(self):

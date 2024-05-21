@@ -15,11 +15,11 @@ class QueryProblems(rx.State):
     def get_all_problems(self):
         with rx.session() as session:
             self.problems = session.exec(select(Problem).offset(self.offset).limit(self.limit)).all()
-            
+
     def get_problem_by_word(self):
         with rx.session() as session:
             self.problems = session.exec(select(Problem).where(Problem.title.contains(self.query.capitalize()))).all()
-            print(self.problems, self.query)
+            
 
 
 
