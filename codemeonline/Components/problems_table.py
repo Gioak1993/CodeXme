@@ -33,18 +33,24 @@ def problems_table() -> rx.Component:
                     spacing = "2",
                     margin = "0.5rem",
                 ),
-                rx.table.root(
-                    rx.table.header(
-                        rx.table.row(
-                            rx.table.column_header_cell('Title'),
-                            rx.table.column_header_cell('Difficulty'),
+                rx.cond(QueryProblems.is_loaded,
+                    rx.table.root(
+                        rx.table.header(
+                            rx.table.row(
+                                rx.table.column_header_cell('Title'),
+                                rx.table.column_header_cell('Difficulty'),
+                            ),
                         ),
+                        rx.table.body(
+                            rx.foreach(QueryProblems.problems, problems_list),
+        
+                        ),
+                        variant = 'surface',
                     ),
-                    rx.table.body(
-                        rx.foreach(QueryProblems.problems, problems_list),
-    
-                    ),
-                    variant = 'surface',
+                    rx.vstack(
+                    rx.spinner(size = '3'), #spinner to display while the data is loaded
+                    align= 'center',
+                    ),  
                 ),
             
                 direction = "column",

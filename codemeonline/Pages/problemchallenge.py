@@ -2,37 +2,19 @@ import reflex as rx
 from ..States.Languages import LanguagesState, dropdown_lang
 from ..States.EditedCode import EditedCode
 from ..States.GetProblem import GetProblem
+from ..States.Results import Results
 from ..Components.navbar import navbar
 from ..Components.footer import footer
 from ..Components.codeArea import CodeArea
 
+
 codearea= CodeArea.create
-
-
-class Results(rx.State):
-
-    display_result:str = "Once submitted, you'll see your result here"
-    results:bool = False
-
-    async def get_results(self):
-
-        self.display_result = "Loading..."
-
-        editecode = await self.get_state(EditedCode)
-        getproblem = await self.get_state(GetProblem)
-        if editecode.output.strip().replace(" ", "") == getproblem.each_output.strip().replace(" ", ""): ##remove the spaces so you can compare the outputs regardless of what the user type hen creatng the problem
-            self.results = True
-            self.display_result = "Congratulations, your code its correct!"
-        else:
-            self.display_result = "Your code failed, but dont worry you can try again!"
-
 
 
 def problem_challenge_desktop () -> rx.Component:
 
     return rx.desktop_only(
         rx.vstack(
-                navbar(),
                 rx.heading(GetProblem.title, padding = '1rem',),
                 rx.card(
                     rx.flex(
@@ -56,20 +38,24 @@ def problem_challenge_desktop () -> rx.Component:
                                         rx.text("Description", 
                                                 size = "5", 
                                                 weight = 'bold',),
-                                            rx.code_block(wrap_long_lines = True, 
-                                                        code=GetProblem.description, 
-                                                        language = "wiki", 
-                                                        show_line_numbers = False ),
-                                            width = "100%",
-                                            height = "100%",  
+                                        rx.code_block(wrap_long_lines = True, 
+                                                    code=GetProblem.description, 
+                                                    language = "wiki", 
+                                                    show_line_numbers = False, 
+                                                    height = "70vh",
+                                                    ),
+                                        width = "100%",
+                                        height = "100%",  
                                         ),
                                     rx.vstack(
                                         rx.text("Your Code", size = "5", weight = 'bold',),
                                         codearea(value = GetProblem.answer, 
                                                 language = EditedCode.language_name, 
-                                                on_change = EditedCode.changetext),
-                                        width = "100%",
-                                        height = "100%",
+                                                on_change = EditedCode.changetext,
+                                                height = "70vh"
+                                                ),
+                                                width = "100%",
+                                                height = "100%",
                                         ),
                             width = '100%',
                             height = "100%",
@@ -90,22 +76,17 @@ def problem_challenge_desktop () -> rx.Component:
                     ),
                 width = '100%',
                 ),
-
-        rx.logo(),
-        footer(),
-        align = 'center',
-        padding = '1rem',
-        width = '100%',
+                align= 'center',
         ),
-    width = '100%',
+        width = '100%',
 )
+
 
 
 def problem_challenge_mobile () ->rx.Component:
 
     return rx.mobile_and_tablet(
         rx.vstack(
-                navbar(),
                 rx.heading(GetProblem.title, padding = '1rem',),
                 rx.card(
                     rx.flex(
@@ -133,7 +114,8 @@ def problem_challenge_mobile () ->rx.Component:
                                             rx.code_block(wrap_long_lines = True, 
                                                         code = GetProblem.description, 
                                                         language = "wiki", 
-                                                        show_line_numbers = False 
+                                                        show_line_numbers = False,
+                                                        height = "60vh", 
                                                         ),
                                             value="description" 
                                         ),
@@ -141,9 +123,9 @@ def problem_challenge_mobile () ->rx.Component:
                                             codearea(value = GetProblem.answer, 
                                                     language = EditedCode.language_name, 
                                                     on_change = EditedCode.changetext),
-                                            value = "your code",
-                                            width = "100%",
-                                            height = "60vh",
+                                                    value = "your code",
+                                                    width = "100%",
+                                                    height = "60vh",
                                         ),
                             default_value = "description",
                             width = "100%",
@@ -161,13 +143,11 @@ def problem_challenge_mobile () ->rx.Component:
                         min_height = '100%',
                         ),
                 flex_wrap = "wrap",
+                width = "100%",
                 ),
             width = '100%',
-            ),
-        rx.logo(),
-        footer(),
+            ),  
         align = 'center',
-        padding = '1rem',
         width = '100%',
         ),
     width = '100%',
@@ -176,6 +156,22 @@ def problem_challenge_mobile () ->rx.Component:
 def problem_challenge () -> rx.Component:
 
     return rx.vstack(
-        problem_challenge_desktop(),
-        problem_challenge_mobile(),
-    )
+            navbar(),
+            rx.cond(GetProblem.is_loaded, 
+                rx.vstack(
+                    problem_challenge_desktop(),
+                    problem_challenge_mobile(),
+                    width = "100%",
+                ),
+                rx.vstack(
+                    rx.spinner(size='3', margin_top = 'auto', margin_bottom = 'auto'),
+                    align='center',
+                    height = "80vh",
+                ),
+            ),
+            rx.logo(),
+            footer(),
+            align = 'center',
+            padding = '1rem',
+            width = '100%',
+)

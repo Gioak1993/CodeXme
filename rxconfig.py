@@ -9,5 +9,5 @@ DB_URL = os.getenv("DB_URL")
 config = rx.Config(
     app_name="codemeonline",
     db_url=DB_URL,
-    api_url="http://localhost:8000"
+    # api_url="http://localhost:8000"
 )

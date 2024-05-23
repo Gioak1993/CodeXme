@@ -17,6 +17,7 @@ class CodeArea(rx.Component):
     value: rx.Var[str] = ""
     theme: str = "vs-dark"
     width: str = "100%"
+    height: str = "100%"
     options: dict = {"readOnly" : "false", "lineNumbers": "on", "minimap": {"enabled": "true"}}
     line: int = 1
     on_change: rx.EventHandler[lambda e0: [e0]]

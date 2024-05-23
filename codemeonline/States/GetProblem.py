@@ -1,13 +1,15 @@
 import reflex as rx
 from ..SqlModels.models import Problem, TestCase
+from ..Pages.pagenotfound import not_found
 from sqlmodel import select
+import time
 
 class GetProblem(rx.State):
 
     id: int 
-    title: str
+    title: str 
     handle_title: str #the last part of the url on each problem that will be display. ej: .../problems/handle_title
-    description: str
+    description: str 
     difficulty: str
     user_id: int  #the user that created the problem
     created_at: str
@@ -18,7 +20,7 @@ class GetProblem(rx.State):
     answer: str  
     each_output: str
     solutions: str
-
+    is_loaded: bool = False #its the data from the database loaded?
 
 
     @rx.var
@@ -26,11 +28,13 @@ class GetProblem(rx.State):
         # Capture the handle title form the url
         return self.router.page.params.get("handle_title", "no handle_title")
 
+    def reset_is_loaded(self):
+            self.is_loaded = False # reset the value in case it was True for a previous query 
 
-    
-    def get_problem_by_handle_title(self) -> list:
+    def get_problem_by_handle_title(self):
+
+
         with rx.session() as session:
-
             query_problem = session.exec(select(Problem).where(Problem.handle_title == self.item_handle)).first()
             if query_problem:
                 self.id = query_problem.id
@@ -42,9 +46,13 @@ class GetProblem(rx.State):
                 self.created_at = query_problem.created_at
                 self.input_variables = query_problem.input_number_variables
                 self.output_variables = query_problem.output_number_variables
+            
+            else:
+                return rx.redirect('../challenges')
+            
 
             query_tests = session.exec(select(TestCase).where(TestCase.problem_id == self.id)).all()
-
+            
             if query_tests:
 
                 self.input_list = [] #reset the list everytime the function is called so you dont have duplicated values
@@ -55,17 +63,15 @@ class GetProblem(rx.State):
                         self.input_list.append(item.input_data)
                         self.output_list.append(item.expected_output)
 
-                # self.each_input=''
                 self.solutions = ''
                 self.each_output = ''
 
                 for index, item in enumerate(self.input_list):
 
                     if index < len(self.input_list) - 1:
-                        # self.each_input += f'{item}, '
                         self.solutions +=f'Solution().answer({item}), '
+
                     else:
-                        # self.each_input += f'{item}'
                         self.solutions += f'Solution().answer({item})'
                 
                 for index, item in enumerate(self.output_list):
@@ -74,8 +80,8 @@ class GetProblem(rx.State):
                     else:
                         self.each_output += f'{item}'
 
-            
-    def extract_input_output (self) ->str:
+                
+    def extract_input_output (self):
 
         name_inputs:str = ""
 
@@ -85,6 +91,9 @@ class GetProblem(rx.State):
             
         self.answer = f'''class Solution(object):
     def answer(self{name_inputs}):'''
+        
+
+        self.is_loaded = True #once we gather all the data we change the value to true to display the components
         
 
         
